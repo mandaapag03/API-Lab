@@ -1,4 +1,5 @@
 ﻿using LAB_API.Model;
+using LAB_API.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +9,16 @@ namespace LAB_API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        public UserController() { }
+        private readonly UserRepository _userRepository;
+        public UserController() 
+        { 
+            _userRepository = new UserRepository();
+        }
 
         [HttpPost]
         public User? CadastrarUsuario(User usuario)
         {
+            _userRepository.Create(usuario);
             return null;
         }
     }
