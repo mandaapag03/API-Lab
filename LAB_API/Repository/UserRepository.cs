@@ -1,4 +1,4 @@
-﻿]using LAB_API.Model;
+using LAB_API.Model;
 using LAB_API.Repository.Context;
 using Microsoft.EntityFrameworkCore;
 
