@@ -10,7 +10,7 @@
         public bool IsActivate { get; set; }
         public string CnpjCpf  { get; set; }
 
-        public string Birthday { get; set; }
+        public DateTime Birthday { get; set; }
         public string Phone { get; set; }
 
     }

@@ -7,9 +7,10 @@ namespace LAB_API.Repository.Context
     {
         public DbSet<User> Users { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            base.OnConfiguring(optionsBuilder);
+            var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.Development.json").Build();
+            options.UseNpgsql(config.GetConnectionString("PostgreSQL"));
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
