@@ -10,10 +10,10 @@ namespace LAB_API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
-        public UserController(IUserRepository userRepository) 
-        { 
-            _userRepository = userRepository;
+        private readonly UserRepository _userRepository;
+        public UserController() 
+        {
+            _userRepository = new UserRepository();
         }
 
         [HttpGet]

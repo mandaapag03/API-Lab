@@ -9,9 +9,9 @@ namespace LAB_API.Repository
     {
         private readonly DataBaseContext _context;
 
-        public UserRepository(DataBaseContext context)
+        public UserRepository()
         {
-            _context = context;
+            _context = new DataBaseContext();
         }
         public void Create(User user)
         {
