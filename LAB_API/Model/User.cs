@@ -1,5 +1,8 @@
-﻿namespace LAB_API.Model
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace LAB_API.Model
 {
+    [Table("user", Schema = "dblab")]
     public class User
     {
         public int Id { get; set; }
