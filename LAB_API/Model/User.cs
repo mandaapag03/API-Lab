@@ -12,8 +12,6 @@ namespace LAB_API.Model
         public string Password { get; set; }
         public bool IsActivate { get; set; }
         public string CnpjCpf  { get; set; }
-
-        public DateTime Birthday { get; set; }
         public string Phone { get; set; }
 
     }

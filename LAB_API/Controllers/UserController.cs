@@ -21,7 +21,6 @@ namespace LAB_API.Controllers
         {
             var users = _userRepository.GetAllUsers();
             return Ok(users);
-
         }
 
         [HttpPost("cadastro")]
@@ -36,7 +35,17 @@ namespace LAB_API.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            return null;
+        }
+        [HttpPut("{id}")]
+        public IActionResult UpdateUser(int id, User user)
+        {
+
+        }
+
+        [HttpPut]
+        public IActionResult UpdateUser(User user)
+        {
+
         }
     }
 }
