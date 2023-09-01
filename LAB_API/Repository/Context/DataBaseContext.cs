@@ -17,6 +17,6 @@ namespace LAB_API.Repository.Context
         {
             if (Users == null) { }
             base.OnModelCreating(builder);
-        }
+        }   
     }
 }

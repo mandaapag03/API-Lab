@@ -26,6 +26,11 @@ namespace LAB_API.Repository
             }
         }
 
+        public User DisableUser(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<User> GetAllUsers()
         {
             var users = _context.Users.AsNoTracking().ToList();
