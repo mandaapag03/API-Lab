@@ -1,203 +1,71 @@
--- Criando banco de dados e-commerce
+-- Criando as tabelas
+create schema dblab;
 
-create schema dbpet;
-
--- Tipo de pessoa (Física ou jurídica)
-create table dbpet.tipo_pessoa(
+-- tipo de usuário
+create table dblab.user_type(
 	id serial primary key,
-	descrição varchar(50) not null
+	description varchar(10) not null CONSTRAINT user_type_description_uq UNIQUE NULLS NOT DISTINCT
 );
 
--- Endereço
-create table dbpet.endereco(
+-- usuário (1 fk)
+create table dblab.user(
 	id serial primary key,
-	logradouro varchar(100) not null,
-	numero int not null,
-	bairro varchar(60) not null,
-	uf char(2) not null,  
-	cep char(8) not null,
-	cidade varchar(30) not null,
-	complemento varchar(30)
-);
-
--- Pessoa
-create table dbpet.usuario (
-	id serial primary key,
-	id_endereco int not null,
-	id_tipo_pessoa smallint not null,
-	telefone varchar(15) not null,
-	email varchar(60) not null unique,
-	senha varchar(30) not null unique,
-	constraint usuarios_id_endereco_fk foreign key (id_endereco) REFERENCES dbpet.endereco(id),
-	constraint usuarios_id_tipo_pessoa_fk foreign key (id_tipo_pessoa) REFERENCES dbpet.tipo_pessoa(id),
+	cpf_cnpj char(14) not null CONSTRAINT user_cpf_cnpj_uq UNIQUE NULLS NOT DISTINCT,
+    name varchar(60) not null,
+    email varchar(60) not null,
+    user_type_id smallint not null,
+    password varchar(30) not null,
+    is_active boolean not null DEFAULT false,
+    phone varchar(15) not null,
+	CONSTRAINT cpf_cnpj_invalid CHECK (length(cpf_cnpj) = 11 or length(cpf_cnpj) = 14),
 	CONSTRAINT email_invalid CHECK (email like '%@%'),
-	CONSTRAINT senha_invalid CHECK (length(senha) > 8 and length(senha) < 30)
+	CONSTRAINT user_user_type_fk FOREIGN KEY (user_type_id) REFERENCES dblab.user_type(id)
+);
+
+-- boleto (1 fk)
+create table dblab.boleto(
+	boleto char(8) primary key,
+	user_id int not null,
+	payment_date date not null,
+	status varchar(15) not null,
+	CONSTRAINT boleto_user_id_fk FOREIGN KEY (user_id) REFERENCES dblab.user(id)
 );
 	
--- Pessoa Física
-create table dbpet.pessoa_fisica(
-	cpf char(11) primary key,
-	id_usuario int not null,
-	nome_completo varchar(60) not null,
-	data_nascimento date,
-	constraint pessoa_fisica_id_usuario_fk foreign key (id_usuario) REFERENCES dbpet.usuario(id),
-	CONSTRAINT pessoa_fisica_cpf_invalid CHECK (length(cpf) = 11)
-);
-
--- Inscrição Estadual
-create table dbpet.inscricao_estadual(
-	id smallserial primary key,
-	descrição varchar(30) not null
-);
-
--- Pessoa Jurídica
-create table dbpet.pessoa_juridica(
-	cnpj char(14) primary key,
-	id_usuario int not null,
-	razao_social varchar(60) not null,
-	id_inscricao_estadual smallint not null,
-	constraint pessoa_juridica_id_usuario_fk foreign key (id_usuario) REFERENCES dbpet.usuario(id),
-	constraint pessoa_juridica_id_inscricao_estadual_fk foreign key (id_inscricao_estadual) REFERENCES dbpet.inscricao_estadual(id),
-	CONSTRAINT pessoa_juridica_cnpj_invalid CHECK (length(cnpj) = 14)
-);
-
--- Cliente
-create table dbpet.cliente(
+-- laboratório
+create table dblab.lab(
 	id serial primary key,
-	id_usuario int not null, 
-	data_cadastro date not null,
-	constraint cliente_id_usuario_fk foreign key (id_usuario) REFERENCES dbpet.usuario(id)
+	lab char(6) not null unique,
+	andar smallint not null,
+	description varchar(60),
+	is_active boolean not null DEFAULT true,
+	CONSTRAINT lab_invalid_prefix CHECK (lab like 'LAB%')
 );
--- Administrador
-create table dbpet.administrador(
+ 
+-- reserva (2 fk)
+create table dblab.booking(
 	id serial primary key,
-	id_usuario int not null, 
-	constraint administrador_id_usuario_fk foreign key (id_usuario) REFERENCES dbpet.usuario(id)
-);
-	
--- Forma de envio
-create table dbpet.forma_envio(
-	id smallserial primary key,
-	descricao varchar(30) not null,
-	valor_frete real not null,
-	constraint valor_frete_ck check (valor_frete > 0)
+	user_id int not null,
+	lab_id integer not null,
+	date TIMESTAMP not null,
+	CONSTRAINT booking_id_user_fk FOREIGN KEY (user_id) REFERENCES dblab.user(id),
+	CONSTRAINT booking_id_lab_fk FOREIGN KEY (lab_id) REFERENCES dblab.lab(id)
 );
 
--- Categorias
-create table dbpet.categoria(
-	id smallserial primary key,
-	id_subcategoria smallint,
-	nome_categoria varchar(30) not null,
-	constraint categoria_id_subcategoria_fk foreign key (id_subcategoria) REFERENCES dbpet.categoria(id)
-);
--- Produtos
-create table dbpet.produto(
-	id serial primary key,
-	id_categoria smallint not null,
-	nome_produto varchar(60) not null,
-	foto text,
-	preco real not null,
-	descrição varchar(50),
-	constraint produto_id_categoria_fk foreign key (id_categoria) REFERENCES dbpet.categoria(id),
-	constraint produto_preco_ck check (preco > 0)
-);
-	
--- Status do pedido
-create table dbpet.status_pedido(
-	id smallserial primary key,
-	descrição VARCHAR(50)
-);
+-- pagamento (3 fk)
+--create table dblab.payment(
+--	id serial primary key,
+--	user_id int not null,
+--	booking_id int not null,
+--	code_boleto char(8) not null,
+--	payment_date date not null,
+--  CONSTRAINT payment_id_user_fk FOREIGN KEY (user_id) REFERENCES dblab.user(id),
+--	CONSTRAINT payment_booking_id_fk FOREIGN KEY (booking_id) REFERENCES dblab.booking(id),
+--	CONSTRAINT payment_code_boleto_fk FOREIGN KEY (code_boleto) REFERENCES dblab.boleto(boleto)
+--);
 
--- Pedidos
-create table dbpet.pedido(
-	id serial primary key,
-	data_pedido date not null,
-	id_status_pedido smallint not null,
-	id_forma_envio smallint not null,
-	constraint pedido_id_status_pedido_fk foreign key (id_status_pedido) REFERENCES dbpet.status_pedido(id),
-	constraint pedido_id_forma_envio_fk foreign key (id_forma_envio) REFERENCES dbpet.forma_envio(id)
-);
-	
--- Item de pedido
-create table dbpet.item_pedido(
-	id serial primary key,
-	id_pedido int not null,
-	id_produto int not null,
-	quantidade smallint not null,
-	preco_unitario real not null,
-	constraint item_pedido_id_pedido_fk foreign key (id_pedido) REFERENCES dbpet.pedido(id),
-	constraint item_pedido_id_produto_fk foreign key (id_produto) REFERENCES dbpet.produto(id),
-	constraint item_pedido_preco_unitario_ck check (preco_unitario > 0)
-);
+-- Inserindo alguns dados
+insert into dblab.user_type (description) values ('aluno'), ('professor'), ('admin');
+insert into dblab.lab (lab, andar, is_active) values ('LAB100', 1, true), ('LAB101', 1, true),('LAB102', 1, true),('LAB200', 2, true);
 
--- Promoções
-create table dbpet.promocao(
-	id serial primary key,
-	nome varchar(30) not null,
-	descricao VARCHAR(50) not null,
-	desconto smallint not null
-);
-
--- PromocoesAtuais
-create table dbpet.promocoes_atuais(
-	id_produto int not null,
-	id_promocao int not null,
-	constraint promocoes_atuais_id_promocao_fk foreign key (id_promocao) REFERENCES dbpet.promocao(id),
-	constraint promocoes_atuais_id_produto_fk foreign key (id_produto) REFERENCES dbpet.produto(id),
-	primary key( id_produto, id_promocao)
-);
-
--- Forma de pagamento
-create table dbpet.forma_pagamento(
-	id smallint primary key,
-	descricao VARCHAR(50) not null
-);
-
--- Pagamento
-create table dbpet.pagamento(
-	id serial primary key,
-	id_cliente int not null,
-	id_pedido int not null,
-	id_forma_pagamento smallint not null,
-	total real not null,
-	constraint pagamento_id_cliente_fk foreign key (id_cliente) REFERENCES dbpet.cliente(id),
-	constraint pagamento_id_pedido_fk foreign key (id_pedido) REFERENCES dbpet.pedido(id),
-	constraint pagamento_id_forma_pagamento_fk foreign key (id_forma_pagamento) REFERENCES dbpet.forma_pagamento(id),
-	constraint pagamento_total_ck check (total > 0)
-);
-
--- Parcelamento
-create table dbpet.parcelamento(
-	qtd_parcelas smallint primary key,
-	taxa_juros real not null default 0,
-	constraint qtd_parcelas_ck check (qtd_parcelas > 0 and qtd_parcelas <= 12)
-);
--- Carrinho
-create table dbpet.carrinho(
-	id serial primary key,
-	id_cliente int not null,
-	id_produto int not null,
-	quantidade int not null, 
-	constraint carrinho_id_cliente_fk foreign key (id_cliente) REFERENCES dbpet.cliente(id),
-	constraint carrinho_id_produto_fk foreign key (id_produto) REFERENCES dbpet.produto(id)
-);
-
--- Avaliação
-create table dbpet.avaliacao(
-	id int primary key, 
-	id_cliente int not null,
-	id_produto int not null,
-	nota smallint not null,
-	comentario varchar(300),
-	constraint avaliacao_id_cliente_fk foreign key (id_cliente) REFERENCES dbpet.cliente(id),
-	constraint avaliacao_id_produto_fk foreign key (id_produto) REFERENCES dbpet.produto(id),
-	constraint avaliacao_nota_ck check(nota > 0 and nota <= 5)
-);
-
--- Estoque
-create table dbpet.estoque(
-	id int primary key,
-	id_produto int not null, 
-	quantidade int not null,
-	constraint estoque_id_produto_fk foreign key (id_produto) REFERENCES dbpet.produto(id)
-);
+select * from dblab.user_type;
+select * from dblab.lab;
