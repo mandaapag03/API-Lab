@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace LAB_API.Model
 {
@@ -6,6 +7,8 @@ namespace LAB_API.Model
     public class User
     {
         [Column("id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [JsonIgnore]
         public int Id { get; set; }
         [Column("name")]
         public string Name { get; set; }
