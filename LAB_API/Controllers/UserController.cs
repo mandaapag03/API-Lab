@@ -36,16 +36,16 @@ namespace LAB_API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, User user)
-        {
+        //[HttpPut("{id}")]
+        //public IActionResult UpdateUser(int id, User user)
+        //{
 
-        }
+        //}
 
-        [HttpPut]
-        public IActionResult UpdateUser(User user)
-        {
+        //[HttpPut]
+        //public IActionResult UpdateUser(User user)
+        //{
 
-        }
+        //}
     }
 }

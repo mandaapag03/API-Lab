@@ -1,0 +1,49 @@
+// Modelagem do banco de dados
+
+-> usuário (1 fk)
+user:
+	"id"
+    "name"
+    "email",
+    "user_type_id",
+    "password",
+    "is_active",
+    "cpf_cnpj",
+    "birthday",
+    "phone"    
+
+-> tipo de usuário
+user_type:
+	"id",
+	"description"
+
+-> boleto (1 fk)
+boleto:
+	"boleto",
+	"user_id"
+	"payment_date"
+	"status"
+	
+-> laboratório
+lab:
+	"room_number",
+	"is_reserved"
+ 
+-> reserva (2 fk)
+booking:
+	"id"
+	"id_user",
+	"room_number",
+	"date",
+	"start_time",
+	"end_time",
+	"price",
+	"paid"
+	
+-> pagamento (3 fk)
+payment:
+	"id",
+	"id_user",
+	"id_booking",
+	"code_boleto",
+	"date"
