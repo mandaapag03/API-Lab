@@ -13,6 +13,12 @@ namespace LAB_API.Repository
         {
             _context = new DataBaseContext();
         }
+
+        /// <summary>
+        /// Sign in new user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <exception cref="Exception"></exception>
         public void Create(User user)
         {
             try
