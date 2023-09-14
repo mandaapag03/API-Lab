@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LAB_API</name>
+    </assembly>
+    <members>
+        <member name="M:LAB_API.Repository.UserRepository.Create(LAB_API.Model.User)">
+            <summary>
+            Sign in new user
+            </summary>
+            <param name="user"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+    </members>
+</doc>
