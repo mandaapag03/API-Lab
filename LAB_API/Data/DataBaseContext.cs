@@ -1,11 +1,12 @@
 ﻿using LAB_API.Model;
+using LAB_API.Model.Dto;
 using Microsoft.EntityFrameworkCore;
 
 namespace LAB_API.Repository.Context
 {
     public class DataBaseContext : DbContext 
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserDto> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
@@ -15,7 +16,6 @@ namespace LAB_API.Repository.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            if (Users == null) { }
             base.OnModelCreating(builder);
         }   
     }

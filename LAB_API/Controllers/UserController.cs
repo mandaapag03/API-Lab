@@ -17,14 +17,21 @@ namespace LAB_API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetUsuarios() 
+        public IActionResult GetAllUsers() 
         {
             var users = _userRepository.GetAllUsers();
             return Ok(users);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetUsersById(int id) 
+        { 
+            var result = _userRepository.GetById(id);
+            return Ok(result);
+        }
+
         [HttpPost("cadastro")]
-        public IActionResult CadastrarUsuario(User usuario)
+        public IActionResult CadastrarUsuario([FromBody] User usuario)
         {
             try
             {
@@ -36,14 +43,15 @@ namespace LAB_API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        //[HttpPut("{id}")]
-        //public IActionResult UpdateUser(int id, User user)
-        //{
 
-        //}
+        [HttpPut("{id}")]
+        public IActionResult UpdateUser(int id, [FromBody] User user)
+        {
+            return Ok(_userRepository.Update(id, user));
+        }
 
         //[HttpPut]
-        //public IActionResult UpdateUser(User user)
+        //public IActionResult UpdateUser([FromBody] User user)
         //{
 
         //}
