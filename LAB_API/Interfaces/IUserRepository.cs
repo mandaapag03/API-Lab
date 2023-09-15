@@ -1,5 +1,4 @@
 ﻿using LAB_API.Model;
-using LAB_API.Model.Dto;
 
 namespace LAB_API.Interfaces
 {
@@ -7,9 +6,9 @@ namespace LAB_API.Interfaces
     {
         List<User>? GetAllUsers();
         User? GetById(int id);
-        void Create(User user);
-        User Update(User user);
-        User Update(int id, User user);
-        User DisableUser(User user);
+        User? Create(User user);
+        User Update(User user, int id = 0);
+        User Disable(int id);
+        User Enable(int id);
     }
 }

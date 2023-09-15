@@ -30,13 +30,13 @@ namespace LAB_API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("cadastro")]
-        public IActionResult CadastrarUsuario([FromBody] User usuario)
+        [HttpPost("signIn")]
+        public IActionResult SignInUser([FromBody] User user)
         {
             try
             {
-                _userRepository.Create(usuario);
-                return Ok(usuario);
+                _userRepository.Create(user);
+                return Ok(user);
             }
             catch (Exception ex)
             {
@@ -44,16 +44,56 @@ namespace LAB_API.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, [FromBody] User user)
+        [HttpPut("update")]
+        public IActionResult UpdateUser([FromBody] User user)
         {
-            return Ok(_userRepository.Update(id, user));
+            try
+            {
+                return Ok(_userRepository.Update(user));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+        [HttpPut("update/{id}")]
+        public IActionResult UpdateUser([FromBody] User user, int id)
+        {
+            try
+            {
+                return Ok(_userRepository.Update(user, id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        //[HttpPut]
-        //public IActionResult UpdateUser([FromBody] User user)
-        //{
+        [HttpPut("disable/{id}")]
+        public IActionResult DisableUser(int id)
+        {
+            try
+            {
+                return Ok(_userRepository.Disable(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-        //}
+        [HttpPut("enable/{id}")]
+        public IActionResult EnableUser(int id)
+        {
+            try
+            {
+                return Ok(_userRepository.Enable(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

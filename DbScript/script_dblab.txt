@@ -34,11 +34,13 @@ create table dblab.boleto(
 -- laboratório
 create table dblab.lab(
 	id serial primary key,
-	lab char(6) not null unique,
+	lab char(6) not null,
 	andar smallint not null,
 	description varchar(60),
 	is_active boolean not null DEFAULT true,
-	CONSTRAINT lab_invalid_prefix CHECK (lab like 'LAB%')
+	CONSTRAINT lab_invalid_prefix CHECK (lab like 'LAB%'),
+	CONSTRAINT lab_andar_uq UNIQUE (andar),
+	CONSTRAINT lab_lab_uq UNIQUE (lab)
 );
  
 -- reserva (2 fk)
