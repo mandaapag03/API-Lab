@@ -21,6 +21,29 @@ namespace LAB_API
             services.AddControllers();
 
             services.AddScoped<IUserRepository, UserRepository>();
+
+            // Configure JWT authentication
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                var jwtConfig = Configuration.GetSection("JwtConfig").Get<JwtConfig>();
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = jwtConfig.Issuer,
+                    ValidateAudience = true,
+                    ValidAudience = jwtConfig.Audience,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Secret)),
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
+            // Configure authorization policies
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireLoggedIn", policy =>
+                    policy.RequireAuthenticatedUser());
+            });
         }
         public void Configure(WebApplication app, IWebHostEnvironment env)
         {
