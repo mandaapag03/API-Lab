@@ -8,6 +8,7 @@ namespace LAB_API.Interfaces
         Lab GetLabByLabCode(string code);
         Lab Create(Lab lab);
         Lab Update(Lab lab);
-        bool Delete(string code);
+        Lab Disable(string code);
+        Lab Enable(string code);
     }
 }

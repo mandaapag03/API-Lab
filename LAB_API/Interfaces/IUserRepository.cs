@@ -7,6 +7,7 @@ namespace LAB_API.Interfaces
         List<User>? GetAllUsers();
         User? GetById(int id);
         User? Create(User user);
+        User? Login(Credencials credencials);
         User Update(User user, int id = 0);
         User Disable(int id);
         User Enable(int id);

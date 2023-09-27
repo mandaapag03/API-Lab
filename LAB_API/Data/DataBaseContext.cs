@@ -17,7 +17,6 @@ namespace LAB_API.Repository.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-
             builder.ApplyConfiguration(new UserMap());
             builder.ApplyConfiguration(new UserTypeMap());
             builder.ApplyConfiguration(new LabMap());

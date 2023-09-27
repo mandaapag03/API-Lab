@@ -110,5 +110,20 @@ namespace LAB_API.Repository
             }
             return GetById(id);
         }
+
+        public User? Login(Credencials credencials)
+        {
+            var user = _context.Users
+                .Include(u => u.UserType)
+                .FirstOrDefault(u => u.Email == credencials.Email);
+
+            if(user == null)
+                return null;
+
+            if (user.Password != credencials.Password)
+                return null;
+
+            return user;
+        }
     }
 }

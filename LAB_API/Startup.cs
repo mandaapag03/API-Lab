@@ -1,7 +1,12 @@
-﻿using System.Reflection;
+﻿using System.Configuration;
+using System.Reflection;
+using System.Text;
+using LAB_API.Auth;
 using LAB_API.Interfaces;
 using LAB_API.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace LAB_API
@@ -22,28 +27,25 @@ namespace LAB_API
 
             services.AddScoped<IUserRepository, UserRepository>();
 
-            // Configure JWT authentication
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
+            var key = Encoding.ASCII.GetBytes(AppSettings.Secret);
+
+            services.AddAuthentication(x =>
             {
-                var jwtConfig = Configuration.GetSection("JwtConfig").Get<JwtConfig>();
-                options.TokenValidationParameters = new TokenValidationParameters
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(x =>
                 {
-                    ValidateIssuer = true,
-                    ValidIssuer = jwtConfig.Issuer,
-                    ValidateAudience = true,
-                    ValidAudience = jwtConfig.Audience,
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Secret)),
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
-            // Configure authorization policies
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("RequireLoggedIn", policy =>
-                    policy.RequireAuthenticatedUser());
-            });
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
         }
         public void Configure(WebApplication app, IWebHostEnvironment env)
         {

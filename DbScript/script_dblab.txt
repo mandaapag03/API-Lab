@@ -55,7 +55,7 @@ create table dblab.booking(
 
 -- Inserindo alguns dados
 insert into dblab.user_type (description) values ('aluno'), ('professor'), ('admin');
-insert into dblab.lab (lab, andar, is_active) values ('LAB100', 1, true), ('LAB101', 1, true),('LAB102', 1, true),('LAB200', 2, true);
+insert into dblab.lab (lab, andar, is_active) values ('LAB100', 1, true), ('LAB101', 2, true),('LAB102', 3, true),('LAB200', 4, true);
 
 select * from dblab.user_type;
 select * from dblab.lab;

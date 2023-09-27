@@ -77,5 +77,44 @@ namespace LAB_API.Repository
             }
         }
 
+        public Lab Disable(string code)
+        {
+            var updateLab = _context.Labs.FirstOrDefault(l => l.LabCode == code);
+            if (updateLab == null) { throw new Exception("Lab was not found"); }
+
+            updateLab.IsActive = false;
+
+            try
+            {
+                _context.Labs.Update(updateLab);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("The lab could not be updated");
+            }
+            return GetLabByLabCode(code);
+        }
+
+        public Lab Enable(string code)
+        {
+            var updateLab = _context.Labs.FirstOrDefault(l => l.LabCode == code);
+            if (updateLab == null) { throw new Exception("Lab was not found"); }
+
+            updateLab.IsActive = true;
+
+            try
+            {
+                _context.Labs.Update(updateLab);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("The lab could not be updated");
+            }
+            return GetLabByLabCode(code);
+        }
     }
 }

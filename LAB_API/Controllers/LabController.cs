@@ -73,11 +73,12 @@ namespace LAB_API.Controllers
         /// <summary>
         /// Update proporties of a lab
         /// </summary>
-        [HttpPut("update")]
-        public IActionResult UpdateLab(Lab lab)
+        [HttpPut("update/{id}")]
+        public IActionResult UpdateLab([FromBody] Lab lab, [FromRoute] int id)
         {
             try
             {
+                lab.Id = id; 
                 return Ok(_labRepository.Update(lab));
             }
             catch (Exception ex)
@@ -87,14 +88,30 @@ namespace LAB_API.Controllers
         }
 
         /// <summary>
-        /// Delete a lab from database
+        /// Disable a lab
         /// </summary>
-        [HttpDelete("delete")]
-        public IActionResult DeleteLab(string codeLab)
+        [HttpPut("disable/{codeLab}")]
+        public IActionResult DisableLab([FromRoute]string codeLab)
         {
             try
             {
-                return Ok(_labRepository.Delete(codeLab));
+                return Ok(_labRepository.Disable(codeLab));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Enable a lab
+        /// </summary>
+        [HttpPut("enable/{codeLab}")]
+        public IActionResult EnableLab([FromRoute] string codeLab)
+        {
+            try
+            {
+                return Ok(_labRepository.Enable(codeLab));
             }
             catch (Exception ex)
             {

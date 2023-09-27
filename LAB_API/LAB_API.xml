@@ -4,5 +4,85 @@
         <name>LAB_API</name>
     </assembly>
     <members>
+        <member name="T:LAB_API.Controllers.LabController">
+            <summary>
+            Controller of Lab Entity
+            </summary>
+        </member>
+        <member name="M:LAB_API.Controllers.LabController.#ctor">
+            <summary>
+            Constructor method of controler lab
+            </summary>
+        </member>
+        <member name="M:LAB_API.Controllers.LabController.GetAllLabs">
+            <summary>
+            Get all registers of lab
+            </summary>
+        </member>
+        <member name="M:LAB_API.Controllers.LabController.GetLabByCode(System.String)">
+            <summary>
+            Get a lab by your code
+            </summary>
+        </member>
+        <member name="M:LAB_API.Controllers.LabController.SignInLab(LAB_API.Model.Lab)">
+            <summary>
+            Create a new lab in database
+            </summary>
+        </member>
+        <member name="M:LAB_API.Controllers.LabController.UpdateLab(LAB_API.Model.Lab,System.Int32)">
+            <summary>
+            Update proporties of a lab
+            </summary>
+        </member>
+        <member name="M:LAB_API.Controllers.LabController.DisableLab(System.String)">
+            <summary>
+            Disable a lab
+            </summary>
+        </member>
+        <member name="M:LAB_API.Controllers.LabController.EnableLab(System.String)">
+            <summary>
+            Enable a lab
+            </summary>
+        </member>
+        <member name="M:LAB_API.Controllers.UserController.AuthenticateAsync(LAB_API.Model.Credencials)">
+            <summary>
+            This method makes authentication of an user
+            </summary>
+        </member>
+        <member name="M:LAB_API.Controllers.UserController.GetAllUsers">
+            <summary>
+            Get all users 
+            </summary>
+        </member>
+        <member name="M:LAB_API.Controllers.UserController.GetUsersById(System.Int32)">
+            <summary>
+            Get an specific user by your Id
+            </summary>
+        </member>
+        <member name="M:LAB_API.Controllers.UserController.SignInUser(LAB_API.Model.User)">
+            <summary>
+            Registrate an user
+            </summary>
+        </member>
+        <member name="M:LAB_API.Controllers.UserController.UpdateUser(LAB_API.Model.User)">
+            <summary>
+            Updates an user
+            </summary>
+        </member>
+        <member name="M:LAB_API.Controllers.UserController.UpdateUser(LAB_API.Model.User,System.Int32)">
+            <summary>
+            Updates an user by your Id
+            </summary>
+        </member>
+        <member name="M:LAB_API.Controllers.UserController.DisableUser(System.Int32)">
+            <summary>
+            Disable an user
+            </summary>
+        </member>
+        <member name="M:LAB_API.Controllers.UserController.EnableUser(System.Int32)">
+            <summary>
+            Enable an user
+            </summary>
+        </member>
     </members>
 </doc>
