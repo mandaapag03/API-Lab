@@ -1,6 +1,6 @@
 namespace LAB_API.Model
 {
-    public static class NullOrEmptyVariable : Exception
+    public class NullOrEmptyVariable : Exception
     {
         private const string DefaultErrorMessage = "Null or empty parameter";
 
