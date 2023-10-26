@@ -1,0 +1,29 @@
+{
+  "name": "Amanda Pagani",
+  "email": "amanda.email@gmail.com",
+  "userTypeId": 1,
+  "password": "12345678910",
+  "isActive": true,
+  "cpfCnpj": "52356236595",
+  "phone": "11994562866"
+}
+
+{
+  "name": "Paulo Arruda",
+  "email": "paulo@facul.com",
+  "userTypeId": 2,
+  "password": "12345678910",
+  "isActive": true,
+  "cpfCnpj": "41254184520",
+  "phone": "11995486935"
+}
+
+{
+  "name": "Mirele Yasmin Lima",
+  "email": "mireleyaas@facul.com",
+  "userTypeId": 3,
+  "password": "12345678910",
+  "isActive": true,
+  "cpfCnpj": "85474585496",
+  "phone": "11992012355"
+}

@@ -2,13 +2,13 @@
 create schema dblab;
 
 -- tipo de usuário
-create table dblab.user_type(
+create table if not exists dblab.user_type(
 	id serial primary key,
 	description varchar(10) not null CONSTRAINT user_type_description_uq UNIQUE NULLS NOT DISTINCT
 );
 
 -- usuário (1 fk)
-create table dblab.user(
+create table if not exists dblab.user(
 	id serial primary key,
 	cpf_cnpj char(14) not null CONSTRAINT user_cpf_cnpj_uq UNIQUE NULLS NOT DISTINCT,
     name varchar(60) not null,
@@ -23,7 +23,7 @@ create table dblab.user(
 );
 
 -- boleto (1 fk)
-create table dblab.boleto(
+create table if not exists dblab.boleto(
 	boleto char(8) primary key,
 	user_id int not null,
 	payment_date date not null,
@@ -32,7 +32,7 @@ create table dblab.boleto(
 );
 	
 -- laboratório
-create table dblab.lab(
+create table if not exists dblab.lab(
 	id serial primary key,
 	lab char(6) not null,
 	andar smallint not null,
@@ -44,18 +44,15 @@ create table dblab.lab(
 );
  
 -- reserva (2 fk)
-create table dblab.booking(
+create table if not exists dblab.booking(
 	id serial primary key,
 	user_id int not null,
 	lab_id int not null,
-	date TIMESTAMP not null,
+	date TIMESTAMP without time zone not null,
 	CONSTRAINT booking_id_user_fk FOREIGN KEY (user_id) REFERENCES dblab.user(id),
 	CONSTRAINT booking_id_lab_fk FOREIGN KEY (lab_id) REFERENCES dblab.lab(id) ON DELETE CASCADE
 );
 
 -- Inserindo alguns dados
-insert into dblab.user_type (description) values ('aluno'), ('professor'), ('admin');
+insert into dblab.user_type (description) values ('Aluno'), ('Professor'), ('Admin');
 insert into dblab.lab (lab, andar, is_active) values ('LAB100', 1, true), ('LAB101', 2, true),('LAB102', 3, true),('LAB200', 4, true);
-
-select * from dblab.user_type;
-select * from dblab.lab;

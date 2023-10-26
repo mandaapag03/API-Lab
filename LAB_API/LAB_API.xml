@@ -84,5 +84,31 @@
             Enable an user
             </summary>
         </member>
+        <member name="T:LAB_API.Repository.BookingRepository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:LAB_API.Repository.BookingRepository.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:LAB_API.Model.Booking">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:LAB_API.Model.Mapping.LabMap">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:LAB_API.Model.Mapping.LabMap.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{LAB_API.Model.Lab})">
+            <summary>
+            
+            </summary>
+            <param name="builder"></param>
+        </member>
     </members>
 </doc>

@@ -1,5 +1,5 @@
-﻿using LAB_API.Interfaces;
-using LAB_API.Model;
+﻿using LAB_API.Model;
+using LAB_API.Model.Interfaces;
 using LAB_API.Repository.Context;
 using System.Data.Entity;
 
@@ -8,7 +8,7 @@ namespace LAB_API.Repository
     public class LabRepository : ILabRepository
     {
 
-        private DataBaseContext _context;
+        private readonly DataBaseContext _context;
 
         public LabRepository()
         {
@@ -115,6 +115,12 @@ namespace LAB_API.Repository
                 throw new Exception("The lab could not be updated");
             }
             return GetLabByLabCode(code);
+        }
+
+        public Lab GetLabById(int id)
+        {
+            var result = _context.Labs.AsNoTracking().FirstOrDefault(l => l.Id == id);
+            return result == null ? throw new Exception("Lab was not found") : result;
         }
     }
 }

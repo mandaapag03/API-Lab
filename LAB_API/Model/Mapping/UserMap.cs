@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace LAB_API.Mapping
+namespace LAB_API.Model.Mapping
 {
     public class UserMap : IEntityTypeConfiguration<User>
     {

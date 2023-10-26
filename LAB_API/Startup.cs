@@ -1,13 +1,9 @@
-﻿using System.Configuration;
-using System.Reflection;
-using System.Text;
+﻿using System.Text;
 using LAB_API.Auth;
-using LAB_API.Interfaces;
+using LAB_API.Model.Interfaces;
 using LAB_API.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 
 namespace LAB_API
 {
@@ -24,8 +20,6 @@ namespace LAB_API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-            services.AddScoped<IUserRepository, UserRepository>();
 
             var key = Encoding.ASCII.GetBytes(AppSettings.Secret);
 

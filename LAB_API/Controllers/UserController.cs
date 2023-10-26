@@ -1,8 +1,5 @@
-﻿using LAB_API.Interfaces;
-using LAB_API.Model;
+﻿using LAB_API.Model;
 using LAB_API.Repository;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LAB_API.Controllers

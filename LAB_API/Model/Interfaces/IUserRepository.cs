@@ -1,6 +1,6 @@
 ﻿using LAB_API.Model;
 
-namespace LAB_API.Interfaces
+namespace LAB_API.Model.Interfaces
 {
     public interface IUserRepository
     {

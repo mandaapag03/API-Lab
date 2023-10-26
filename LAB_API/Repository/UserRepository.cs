@@ -1,5 +1,5 @@
-using LAB_API.Interfaces;
 using LAB_API.Model;
+using LAB_API.Model.Interfaces;
 using LAB_API.Repository.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,8 +30,7 @@ namespace LAB_API.Repository
 
         public User? Create(User user)
         {
-            if (user == null)
-                throw new Exception("User is null");
+            NullOrEmptyVariable<User>.ThrowIfNull(user, "User is null");
             try
             {
                 _context.Users.Add(user);
