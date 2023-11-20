@@ -14,6 +14,9 @@ docker run --name db-lab-postgres --network=postgres-network -e "POSTGRES_PASSWO
 docker run --name db-quarto-semestre-pgadmin --network=postgres-network -p 15432:80 -e "PGADMIN_DEFAULT_EMAIL=amanda.pagani@aluno.faculdadeimpacta.com.br" -e "PGADMIN_DEFAULT_PASSWORD=PgAdmin2023!" -d dpage/pgadmin4
 
 
+Email : amanda.pagani@aluno.faculdadeimpacta.com.br
+Senha : PgAdmin2023!
+
 // Connection: (Lab)
 Name: db-lab
 Host: db-lab-postgres

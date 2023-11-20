@@ -24,7 +24,7 @@ namespace LAB_API.Repository
         {
             var result = await _context.Bookings
                 .Where(x => x.LabId == newBooking.LabId)
-                //.Where(x => x.Date.Day == newBooking.Date.Day)
+                .Where(x => x.Date.Day == newBooking.Date.Day)
                 .Where(x => x.Date >= newBooking.Date && x.Date <= newBooking.Date.AddHours(1))
                 .FirstOrDefaultAsync();
             return result;

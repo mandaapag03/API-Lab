@@ -1,8 +1,6 @@
 ﻿using LAB_API.Model;
 using LAB_API.Repository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
-using NuGet.Protocol;
 
 namespace LAB_API.Controllers
 {

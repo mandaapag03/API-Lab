@@ -94,7 +94,35 @@
             
             </summary>
         </member>
+        <member name="T:LAB_API.Repository.UserTypeRespository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:LAB_API.Repository.UserTypeRespository.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:LAB_API.Repository.UserTypeRespository.GetAll">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LAB_API.Repository.UserTypeRespository.GetUserType(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:LAB_API.Model.Booking">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:LAB_API.Model.Interfaces.IUserTypeRespository">
             <summary>
             
             </summary>
